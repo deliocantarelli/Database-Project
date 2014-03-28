@@ -95,6 +95,7 @@ ul > .dropdown > .to-button :focus  {
 	margin-top: 20px;
 	vertical-align: text-bottom;
 	color: #33A1DE;
+	margin-bottom: 30px;
 }
 
 .input-page {
@@ -108,5 +109,4 @@ ul > .dropdown > .to-button :focus  {
 	padding-left: 700px;
 	padding-right: 20px;
 	padding-top: 20px;
-	padding-bottom: 30px;
 }

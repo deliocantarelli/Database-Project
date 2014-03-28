@@ -305,7 +305,7 @@
 									echo "<h5 class=\"numbers\"> . . .</a></h5>";
 								}
 
-								echo "<h5><a href=\"?page=" . ($_SESSION['page'] - 1) . "\" class=\"numbers\">" . ($_SESSION['page'] - 1) . "</a></h5>";
+								echo "<h5><a href=\"?page=" . ($_SESSION['page'] - 1) . "\" class=\"numbers\">" . '<' . "</a></h5>";
 							}
 
 							if($_SESSION['page'] != 1 && $_SESSION['page'] != $number_pages)			//show the pages number
@@ -317,7 +317,7 @@
 							if($_SESSION['page'] < ($number_pages - 1))				//show next number!!
 							{
 
-								echo "<h5><a href=\"?page=" . ($_SESSION['page'] + 1) . "\" class=\"numbers\">" . ($_SESSION['page'] + 1) . "</a></h5>";
+								echo "<h5><a href=\"?page=" . ($_SESSION['page'] + 1) . "\" class=\"numbers\">" . '>' . "</a></h5>";
 
 								if($_SESSION['page'] != ($number_pages - 2))
 								{
