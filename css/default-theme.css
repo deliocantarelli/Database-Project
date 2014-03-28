@@ -1,0 +1,112 @@
+.navbar-inverse .default-text-color1 {
+	color: #FFE6FF;
+}
+.navbar-inverse .default-text-color1> li> a {
+	color: #FFE6FF;
+}
+.navbar-inverse .default-text-color1>.active>a, .navbar-inverse .default-text-color1>.active>a:hover, .navbar-inverse .default-text-color1>.active>a:focus {
+	color: #fff;
+	background-color: #428bca;
+}
+.default-background-color1 {
+  	background-color: #33A1DE;
+  	border-color: #325C74;
+}
+
+.under-nav {
+	margin-top: 90px;
+	margin-bottom: 30px;
+}
+
+.search-box {
+	background-color: #F0F8FF;
+	height: 100%;
+	overflow-x: hidden;
+	width: 100%;
+}
+
+.not-row {
+	float: left;
+	width: 16.6667%;
+	margin-right: 0px;
+	margin-left: 0px;
+}
+
+.icon {
+	background-color: transparent;
+}
+.nav-sidebar > li > a,
+.nav-sidebar > li > a:focus {
+	border-radius: 5px;
+}
+.nav-sidebar > li > a:hover {
+  background-color: #BFEFFF;
+}
+
+.to-button {
+	margin-top: 10px;
+	margin-left: 12px;
+	width: 120px;
+	height: 35px;
+	position: relative;
+	background-color: #33A1DE;
+	color: #FFE6FF;
+}
+
+ul > .dropdown > .to-button,
+ul > .dropdown > .to-button :hover,
+ul > .dropdown > .to-button :focus  {
+	color: #FFE6FF;
+}
+
+.conainer-fluid {
+	display: inline;
+}
+
+.main {
+	float: right;
+	margin-left: 0px;
+	margin-top: 90px;
+	padding-left: 50px;
+}
+.td {
+	text-align: center;
+	vertical-align: middle;
+}
+
+.share-index {
+	float: left;
+	width: 30%;
+}
+
+.share-header {
+	float: right;
+	width: 69%;
+}
+
+.numbers,
+.numbers:focus,
+.numbers:link,
+.numbers:visited,
+.numbers:hover {
+	font-size: 16px;
+	float: left;
+	margin: 5px;
+	margin-top: 20px;
+	vertical-align: text-bottom;
+	color: #33A1DE;
+}
+
+.input-page {
+	float: left;
+	width: 50px;
+	margin-top: 10px;
+	margin-right: 20px;
+}
+
+.numbers-bottom {
+	padding-left: 700px;
+	padding-right: 20px;
+	padding-top: 20px;
+	padding-bottom: 30px;
+}
