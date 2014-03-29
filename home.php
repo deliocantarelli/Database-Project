@@ -14,6 +14,30 @@
 		$_SESSION['itensPerPage'] = 20;
 		$_SESSION['page'] = 1;
 	}
+	if(isset($_GET['home']))
+	{
+		$_SESSION['searchMedia'] = NULL;
+		$_SESSION['onlyDecade'] = 'false';
+	}
+	if(isset($_GET['searchMedia']))
+	{
+    	$_SESSION['page'] = '1';
+		$_SESSION['searchMedia'] = $_GET['searchMedia'];
+	}
+	if($_SESSION['searchMedia'] == '')		//to keep the search going on between pages
+	{
+		$_SESSION['searchMedia'] = NULL;
+	}
+	
+	if($_GET['decade'] == 'any')
+	{
+		$_SESSION['onlyDecade'] = 'false';
+	}
+	else if(isset($_GET['decade']))
+	{
+		$_SESSION['onlyDecade'] = 'true';
+		$_SESSION['decade'] = $_GET['decade'];
+	}
 	if(isset($_GET['sortType']))				//to see the way the user wants oredered
 	{
 		if($_SESSION['sortTitle'] == 'true' && isset($_GET['sortTitle']))
@@ -67,25 +91,23 @@
 			$_SESSION['sortGenre'] = 'true';
 		}
 	}
-	if(isset($_GET['decade']))
-	{
-		$_SESSION['onlyDecade'] = 'true';
-		$_SESSION['decade'] = $_GET['decade'];
-	}
-	else
-	{
-		$_SESSION['onlyDecade'] = 'false';
-	}
 
 	$db = new mysqli('localhost', 'root', '', 'Databases');
-	$query = "SELECT * FROM Medias";
+	$query = "SELECT ID, DVD_Title, Price, Genre, Year FROM Medias";
 
     if($db->connect_errno > 0)										//change the query to the right way
     {
         die('Unable to connect to database [' . $db->connect_error . ']');
     }
-    if($_SESSION['onlyDecade'] == 'true')
+    if($_SESSION['onlyDecade'] == 'true' && isset($_SESSION['searchMedia']))
     {
+    	$query = $query . " where Year > " . ($_SESSION['decade'] - 1) . " and Year < " . ($_SESSION['decade'] + 10) . " and (DVD_Title like ? or Genre like ? or Studio like ?)";
+    }
+    elseif(isset($_SESSION['searchMedia']) && $_SESSION['searchMedia'] != NULL)
+    {
+    	$query = $query . " where DVD_Title like ? or Genre like ? or Studio like ?";
+    }
+    elseif ($_SESSION['onlyDecade'] == 'true') {
     	$query = $query . " where Year > " . ($_SESSION['decade'] - 1) . " and Year < " . ($_SESSION['decade'] + 10);
     }
 	if($_SESSION['sortType'] == 'GenreASC')
@@ -114,7 +136,19 @@
 	}
 
 	global $result, $count, $first_result, $last_result, $number_pages;		//for using in other parts of the code
-    $result = $db->query($query);							//gets ready all the important data
+    $result = $db->prepare($query);							//gets ready all the important data
+
+    	echo $query;
+    if(isset($_SESSION['searchMedia']))
+    {
+    	$searchGambi = '%' . $_SESSION['searchMedia'] . '%';
+
+    	$result->bind_param('sss', $searchGambi, $searchGambi, $searchGambi);
+    }
+    $result->execute();
+    $result->bind_result($ID, $DVD_Title, $Price, $Genre, $Year);
+    $result->store_result();
+
     $count = $result->num_rows;
     $number_pages = ceil($count / $_SESSION['itensPerPage']);
 
@@ -149,12 +183,12 @@
 				<div class="container">
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle" data-toggle="colapse" data-target=".navbar-collapse"></button>
-						<a class="navbar-brand default-text-color1" href="#home">Media Tag</a>
+						<a class="navbar-brand default-text-color1" href="?home=true">Media Tag</a>
 					</div>
 					<div class="navbar-collapse collapse">
 						<div class="nav navbar-nav default-text-color1">
 							<li class="active">
-								<a href="#home">Home</a>
+								<a href="?home=true">Home</a>
 							</li>
 							<li>
 								<a href="#shop">Shop</a>
@@ -185,7 +219,7 @@
 								<form method="get" action="">
 									<div class="input-group input-group-md under-nav">
 									  <span class="input-group-addon glyphicon glyphicon-search icon"></span>
-									  <input type="text" class="form-control" style="margin-top: 2px;" placeholder="Search media">
+									  <input type="text" class="form-control" style="margin-top: 2px;" placeholder="Search media" name="searchMedia">
 								</div>
 								</form>
 								<li class="active"><a href="?sortType=true&sortTitle=true">Sort Alphabetically</a></li>
@@ -207,6 +241,7 @@
 								    <li role="presentation"><a role="menuitem" tabindex="-9" href="?decade=1930">30's</a></li>
 								    <li role="presentation"><a role="menuitem" tabindex="-10" href="?decade=1920">20's</a></li>
 								    <li role="presentation"><a role="menuitem" tabindex="-11" href="?decade=1910">10's</a></li>
+								    <li role="presentation"><a role="menuitem" tabindex="-12" href="?decade=any">Any</a></li>
 								  </ul>
 								</div>
 						</ul>
@@ -228,35 +263,38 @@
 							";
 
 							echo "<h5><a href=\"?page=1\" class=\"numbers\">1</a></h5>";
-
-							if($_SESSION['page'] > 2)			//show number before!!
+							if($number_pages > 2)
 							{
-								if($_SESSION['page'] != 3)
+								if($_SESSION['page'] > 2)			//show number before!!
 								{
-									echo "<h5 class=\"numbers\"> . . .</a></h5>";
+									if($_SESSION['page'] != 3)
+									{
+										echo "<h5 class=\"numbers\"> . . .</a></h5>";
+									}
+
+									echo "<h5><a href=\"?page=" . ($_SESSION['page'] - 1) . "\" class=\"numbers\">" . ($_SESSION['page'] - 1) . "</a></h5>";
 								}
 
-								echo "<h5><a href=\"?page=" . ($_SESSION['page'] - 1) . "\" class=\"numbers\">" . ($_SESSION['page'] - 1) . "</a></h5>";
-							}
-
-							if($_SESSION['page'] != 1 && $_SESSION['page'] != $number_pages)			//show the pages number
-							{
-
-								echo "<h5 class=\"numbers\">" . $_SESSION['page'] ."</h5>";
-
-							}
-							if($_SESSION['page'] < ($number_pages - 1))				//show next number!!
-							{
-
-								echo "<h5><a href=\"?page=" . ($_SESSION['page'] + 1) . "\" class=\"numbers\">" . ($_SESSION['page'] + 1) . "</a></h5>";
-
-								if($_SESSION['page'] != ($number_pages - 2))
+								if($_SESSION['page'] != 1 && $_SESSION['page'] != $number_pages)			//show the pages number
 								{
-									echo "<h5 class=\"numbers\"> . . .</a></h5>";
-								}
-							}
 
-							echo "<h5><a href=\"?page=". $number_pages ."\" class=\"numbers\">". $number_pages ."</a></h5>";
+									echo "<h5 class=\"numbers\">" . $_SESSION['page'] ."</h5>";
+
+								}
+								if($_SESSION['page'] < ($number_pages - 1))				//show next number!!
+								{
+
+									echo "<h5><a href=\"?page=" . ($_SESSION['page'] + 1) . "\" class=\"numbers\">" . ($_SESSION['page'] + 1) . "</a></h5>";
+
+									if($_SESSION['page'] != ($number_pages - 2))
+									{
+										echo "<h5 class=\"numbers\"> . . .</a></h5>";
+									}
+								}
+
+								echo "<h5><a href=\"?page=". $number_pages ."\" class=\"numbers\">". $number_pages ."</a></h5>";
+							}
+							
 						?>
 					</div>
 				</div>
@@ -274,16 +312,16 @@
 						<tbody>
 							<?php
 								$result->data_seek($first_result);
-				            	for ($i = $first_result; $i < $last_result && ($row = $result->fetch_array()); $i ++)
+				            	for ($i = $first_result; $i < $last_result && ($result->fetch()); $i ++)
 								{
 									echo
 
 									"<tr>" .
-									"<td><input type=\"checkbox\" name=\"checkbox-".$row["ID"]. "\" value=\"checked\" /></td>" .
-									"<td>".$row["DVD_Title"]."</td>".
-									"<td>" .$row["Price"]."</td>".
-									"<td>".$row["Genre"]."</td>".
-									"<td>".$row["Year"]."</td>".
+									"<td><input type=\"checkbox\" name=\"checkbox-".$ID. "\" value=\"checked\" /></td>" .
+									"<td>".$DVD_Title."</td>".
+									"<td>".$Price."</td>".
+									"<td>".$Genre."</td>".
+									"<td>".$Year."</td>".
 
 									"</tr>";
 								}
@@ -298,34 +336,37 @@
 
 							echo "<h5><a href=\"?page=1\" class=\"numbers\">1</a></h5>";
 
-							if($_SESSION['page'] > 2)			//show number before!!
+							if($number_pages > 1)
 							{
-								if($_SESSION['page'] != 3)
+								if($_SESSION['page'] > 2)			//show number before!!
 								{
-									echo "<h5 class=\"numbers\"> . . .</a></h5>";
+									if($_SESSION['page'] != 3)
+									{
+										echo "<h5 class=\"numbers\"> . . .</a></h5>";
+									}
+
+									echo "<h5><a href=\"?page=" . ($_SESSION['page'] - 1) . "\" class=\"numbers\">" . '<' . "</a></h5>";
 								}
 
-								echo "<h5><a href=\"?page=" . ($_SESSION['page'] - 1) . "\" class=\"numbers\">" . '<' . "</a></h5>";
-							}
-
-							if($_SESSION['page'] != 1 && $_SESSION['page'] != $number_pages)			//show the pages number
-							{
-
-								echo "<h5 class=\"numbers\">" . $_SESSION['page'] ."</h5>";
-
-							}
-							if($_SESSION['page'] < ($number_pages - 1))				//show next number!!
-							{
-
-								echo "<h5><a href=\"?page=" . ($_SESSION['page'] + 1) . "\" class=\"numbers\">" . '>' . "</a></h5>";
-
-								if($_SESSION['page'] != ($number_pages - 2))
+								if($_SESSION['page'] != 1 && $_SESSION['page'] != $number_pages)			//show the pages number
 								{
-									echo "<h5 class=\"numbers\"> . . .</a></h5>";
-								}
-							}
 
-							echo "<h5><a href=\"?page=". $number_pages ."\" class=\"numbers\">". $number_pages ."</a></h5>";
+									echo "<h5 class=\"numbers\">" . $_SESSION['page'] ."</h5>";
+
+								}
+								if($_SESSION['page'] < ($number_pages - 1))				//show next number!!
+								{
+
+									echo "<h5><a href=\"?page=" . ($_SESSION['page'] + 1) . "\" class=\"numbers\">" . '>' . "</a></h5>";
+
+									if($_SESSION['page'] != ($number_pages - 2))
+									{
+										echo "<h5 class=\"numbers\"> . . .</a></h5>";
+									}
+								}
+
+								echo "<h5><a href=\"?page=". $number_pages ."\" class=\"numbers\">". $number_pages ."</a></h5>";
+							}
 						?>
 				</div>
 				
