@@ -253,17 +253,24 @@
 					<h2 class="sub-header share-index">
 						Medias
 					</h2>
-					<div>				<!-- pages index -->
+					<div class="page-index">				<!-- pages index -->
 						<?php
 
 							echo " 
-									<h5 class=\"numbers\" style=\"margin-left: 200px; color: #33A1DE\">Page</h5>
+									<h5 class=\"numbers page-title\" style=\"margin-left: 200px; color: #33A1DE\">Page</h5>
 									<form method=\"get\" action=\"\">
 										<input class=\"input-page form-control\" type=\"text\" name=\"page\" />
 									</form>
 							";
 
-							echo "<h5><a href=\"?page=1\" class=\"numbers\">1</a></h5>";
+							if($_SESSION['page'] == 1)
+							{
+								echo "<h5 class=\"numbers\"><a href=\"?page=1\">1</a></h5>";
+							}
+							else
+							{
+								echo "<h5><a href=\"?page=1\" class=\"numbers\">1</a></h5>";
+							}
 							if($number_pages > 2)
 							{
 								if($_SESSION['page'] > 2)			//show number before!!
@@ -292,8 +299,14 @@
 										echo "<h5 class=\"numbers\"> . . .</a></h5>";
 									}
 								}
-
-								echo "<h5><a href=\"?page=". $number_pages ."\" class=\"numbers\">". $number_pages ."</a></h5>";
+								if($_SESSION['page'] == $number_pages)
+								{
+									echo "<h5 class=\"numbers\"><a href=\"?page=". $number_pages ."\">". $number_pages ."</a></h5>";
+								}
+								else
+								{
+									echo "<h5><a href=\"?page=". $number_pages ."\" class=\"numbers\">". $number_pages ."</a></h5>";
+								}
 							}
 							
 						?>
@@ -332,10 +345,16 @@
 						</tbody>
 					</table>
 				</div>
-				<div class="numbers-bottom">
+				<div class="div-bottom">
 					<?php
-
-							echo "<h5><a href=\"?page=1\" class=\"numbers\">1</a></h5>";
+							if($_SESSION['page'] == 1)
+							{
+								echo "<h5><a href=\"?page=1\" class=\"non-selectable-number\">1</a></h5>";
+							}
+							else
+							{
+								echo "<h5><a href=\"?page=1\" class=\"numbers \">1</a></h5>";
+							}
 
 							if($number_pages > 1)
 							{
@@ -366,7 +385,14 @@
 									}
 								}
 
-								echo "<h5><a href=\"?page=". $number_pages ."\" class=\"numbers\">". $number_pages ."</a></h5>";
+								if($_SESSION['page'] == $number_pages)
+								{
+									echo "<h5 class=\"numbers\"><a href=\"?page=". $number_pages ."\">". $number_pages ."</a></h5>";
+								}
+								else
+								{
+									echo "<h5><a href=\"?page=". $number_pages ."\" class=\"numbers\">". $number_pages ."</a></h5>";
+								}
 							}
 						?>
 				</div>

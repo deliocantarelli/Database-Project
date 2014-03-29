@@ -84,6 +84,14 @@ ul > .dropdown > .to-button :focus  {
 	width: 69%;
 }
 
+.page-index {
+	padding-top:  20px;
+}
+
+.page-title {
+	padding-top: 10px;
+}
+
 .numbers,
 .numbers:focus,
 .numbers:link,
@@ -92,10 +100,13 @@ ul > .dropdown > .to-button :focus  {
 	font-size: 16px;
 	float: left;
 	margin: 5px;
-	margin-top: 20px;
 	vertical-align: text-bottom;
 	color: #33A1DE;
 	margin-bottom: 30px;
+}
+
+div > .numbers {
+	color: #428bca;
 }
 
 .input-page {
@@ -105,8 +116,21 @@ ul > .dropdown > .to-button :focus  {
 	margin-right: 20px;
 }
 
-.numbers-bottom {
+.div-bottom {
 	padding-left: 700px;
 	padding-right: 20px;
-	padding-top: 20px;
+	padding-top: 40px;
+}
+
+.non-selectable-number,
+.non-selectable-number:focus,
+.non-selectable-number:link,
+.non-selectable-number:visited,
+.non-selectable-number:hover {
+	font-size: 16px;
+	float: left;
+	vertical-align: text-bottom;
+	color: #428bca;
+	margin-bottom: 30px;
+	margin-top: 5px;
 }
