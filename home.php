@@ -35,6 +35,7 @@
 	}
 	else if(isset($_GET['decade']))
 	{
+    	$_SESSION['page'] = '1';
 		$_SESSION['onlyDecade'] = 'true';
 		$_SESSION['decade'] = $_GET['decade'];
 	}
