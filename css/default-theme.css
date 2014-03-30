@@ -19,7 +19,6 @@
 }
 
 .search-box {
-	background-color: #F0F8FF;
 	height: 100%;
 	overflow-x: hidden;
 	width: 100%;
@@ -29,7 +28,9 @@
 	float: left;
 	width: 16.6667%;
 	margin-right: 0px;
-	margin-left: 0px;
+	margin-left: -15px;
+	height: 1117px;
+	background-color: #F0F8FF;
 }
 
 .icon {
@@ -144,4 +145,31 @@ div > .numbers {
 	color: #428bca;
 	margin-bottom: 30px;
 	margin-top: 5px;
+}
+
+.sell-button {
+	margin-top: 100px;
+	margin-bottom: 30px;
+}
+
+.not-row-sell {
+	float: left;
+	width: 16.6667%;
+	margin-right: 0px;
+	margin-left: -15px;
+	height: 900px;
+	background-color: #F0F8FF;
+}
+
+div > div > ul > .sell-button,
+div > div > ul > .sell-button:hover,
+div > div > ul > .sell-button:focus {
+	margin-top: 50px;
+	margin-bottom: 50px;
+}
+
+.sell-field {
+	margin-top: 20px;
+	margin-left: 50px;
+	width: 50%;
 }

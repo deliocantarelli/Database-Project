@@ -173,7 +173,7 @@
 ?>
 
 <!doctype>
-<html style="height: 100%;">
+<html style="height: 100%; min-height: 100%">
 	<head>
 		<meta charset="utf-8" />
 		<title>Media Tags</title>
@@ -181,7 +181,7 @@
 		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
 		<link rel="stylesheet" type="text/css" href="css/default-theme.css">
 	</head>
-	<body style="height: 100%;">						<!-- navigation bar -->
+	<body style="height: 100%; min-height: 100%">						<!-- navigation bar -->
 		<div class="container">
 			<div class="navbar navbar-inverse navbar-fixed-top default-background-color1" role="navigation">
 				<div class="container">
@@ -216,10 +216,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="container-fluid">
+		<div class="container-fluid" style="height: 100%">
 			<div class="row not-row">			<!--side bar!! -->
-					<div class="col-sm-3 col-md-2 sidebar search-box" data-offset-bottom="0">
-						<ul class="nav nav-sidebar affix-bottom affix-top affix-left affix-right">
+					<div class="col-sm-3 col-md-2 sidebar search-box">
+						<ul class="nav nav-sidebar">
 								<form method="get" action="">
 									<div class="input-group input-group-md under-nav">
 									  <span class="input-group-addon glyphicon glyphicon-search icon"></span>
@@ -248,7 +248,7 @@
 								    <li role="presentation"><a role="menuitem" tabindex="-12" href="?decade=any">Any</a></li>
 								  </ul>
 								</div>
-							  <button class="btn dropdown-toggle sr-only to-button cart-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
+							  <button class="btn dropdown-toggle sr-only to-button cart-button" type="button" id="addCartButton" data-toggle="dropdown">
 							    Add to Cart
 							  </button>
 						</ul>
