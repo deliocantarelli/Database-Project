@@ -3,9 +3,20 @@
 	{
 		session_start();
 	}
-	if(isset($_POST))
+    error_reporting(E_ALL);
+	if(isset($_POST['DVD_Title']))
 	{
+		$db = new mysqli('localhost', 'root', '', 'Databases');
+		$statement = $db->prepare("INSERT INTO Medias (Owner, DVD_Title, Studio, Released, Status, Sound, Versions, Price, Rating, Year, Genre, Aspect, UPC, DVD_ReleaseDate) values (?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 
+        //$statement = $db->prepare("SELECT Studio FROM Medias where Owner like ?");
+        //$statement->bind_param("s", $_POST['Genre']);
+
+		$statement->bind_param("ssssssssssssss", $_SESSION['user'],$_POST['DVD_Title'], $_POST['Studio'], $_POST['Released'], $_POST['Status'], $_POST['Sound'], $_POST['Versions'], $_POST['Price'], $_POST['Rating'], $_POST['Year'], $_POST['Genre'], $_POST['Aspect'], $_POST['UPC'], $_POST['DVD_Release_Date']);
+		if($statement->execute())
+		{
+			echo '<script>Submitted to the shop succesfuly</script>';
+		}
 	}
 ?>
 <!doctype>
@@ -78,7 +89,7 @@
 			<div class="container main">
 				<form name="formToSell" id="formToSell" method="post" action="">
 					<div style="display: inline margin-top: 50px;"><h5 class="sell-text">Name</h5><input name="DVD_Title" type="text" class="form-control signup-field sell-field" placeholder="Media Name" required=""/></div>
-					<div style="display: inline"><h5 class="sell-text">Price</h5><input name="Price" type="text" class="form-control signup-field sell-field" placeholder="Price" required=""/></div>
+					<div style="display: inline"><h5 class="sell-text">Price</h5><input name="Price" type="number" class="form-control signup-field sell-field" placeholder="Price" required=""/></div>
 					<div style="display: inline"><h5 class="sell-text">Studio</h5><input name="Studio" type="text" class="form-control signup-field sell-field" placeholder="Studio" required=""/></div>
 					<div style="display: inline"><h5 class="sell-text">Released</h5><input name="Released" type="text" class="form-control signup-field sell-field" placeholder="Released" required=""/></div>
 					<div style="display: inline"><h5 class="sell-text">Status</h5><input name="Status" type="text" class="form-control signup-field sell-field" placeholder="Status" required=""/></div>
@@ -108,7 +119,7 @@
 			//};
 				newValue[0].bind("propertychange keyup input paste", function(event){if(newValue[0].val() != '') textToChange[0].html(newValue[0].val()); else textToChange[0].html(placeHolder[0]);});				//porque a porra do for não funciona '--
 
-				newValue[1].bind("propertychange keyup input paste", function(event){if(newValue[1].val() != '') textToChange[1].html(newValue[1].val()); else textToChange[1].html(placeHolder[1]);});
+				newValue[1].bind("propertychange keyup input paste", function(event){if(newValue[1].val() != '') textToChange[1].html("" + newValue[1].val()); else textToChange[1].html(placeHolder[1]);});
 				newValue[2].bind("propertychange keyup input paste", function(event){if(newValue[2].val() != '') textToChange[2].html(newValue[2].val()); else textToChange[2].html(placeHolder[2]);});
 				newValue[3].bind("propertychange keyup input paste", function(event){if(newValue[3].val() != '') textToChange[3].html(newValue[3].val()); else textToChange[3].html(placeHolder[3]);});
 				newValue[4].bind("propertychange keyup input paste", function(event){if(newValue[4].val() != '') textToChange[4].html(newValue[4].val()); else textToChange[4].html(placeHolder[4]);});
@@ -125,20 +136,33 @@
 		<script type="text/javascript">
 			function submitForm()
 			{
-				/*var a=document.forms["Form"]["ans_a"].value;
-			    var b=document.forms["Form"]["ans_b"].value;
-			    var c=document.forms["Form"]["ans_c"].value;
-			    var d=document.forms["Form"]["ans_d"].value;
-			    if (a==null || a=="",b==null || b=="",c==null || c=="",d==null || d=="")
-			      {
-			      alert("Please Fill All Required Field");
-			      return false;
-			      }
+				var numbers = /^[0-9]+$/;;
+				var a=document.forms["formToSell"]["DVD_Title"].value;
+			    var b=document.forms["formToSell"]["Price"].value;
+			    var c=document.forms["formToSell"]["Studio"].value;
+			    var d=document.forms["formToSell"]["Released"].value;
+				var e=document.forms["formToSell"]["Status"].value;
+			    var f=document.forms["formToSell"]["Sound"].value;
+			    var g=document.forms["formToSell"]["Versions"].value;
+			    var h=document.forms["formToSell"]["Rating"].value;
+				var i=document.forms["formToSell"]["Year"].value;
+			    var j=document.forms["formToSell"]["Genre"].value;
+			    var k=document.forms["formToSell"]["Aspect"].value;
+			    var l=document.forms["formToSell"]["UPC"].value;
+			    var m=document.forms["formToSell"]["DVD_Release_Date"].value;
+			    if (a==null || a=="",b==null || b=="",c==null || c=="",d==null || d=="", e==null || e=="",f==null || f=="",g==null || g=="",h==null || h=="", i==null || i=="",j==null || j=="",k==null || k=="",l==null || l=="", m==null || m=="")
+			    {
+				    alert("Please Fill All Required Fields Correctly");
+				    return false;
 			    }
 			    else
 			    {
-					document.formToSell.submit();
-			    }*/
+			    	if(b.match(numbers))
+			    	{
+				    	alert("Please Fill All Required Fields Correctly");
+						document.formToSell.submit();
+			    	}
+			    }
 			}
 		</script>
 	</body>
