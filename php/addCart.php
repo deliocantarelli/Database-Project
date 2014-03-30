@@ -11,10 +11,6 @@
 			{
 				$_SESSION['cart'] = array();
 			}
-			else
-			{
-
-			}
 			if (isset($_GET['addCart'])) {
 
 				array_splice($_SESSION['cart'], count($_SESSION['cart']), 0, $_GET['addCart']);

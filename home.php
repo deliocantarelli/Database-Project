@@ -4,10 +4,6 @@
 		session_id(1111);
 		session_start();
 	}
-	if(isset($_SESSION['cart']))
-	{
-
-	}
 	if(!isset($_SESSION['sortType']))
 	{
 		$_SESSION['sortType'] = 'TitleASC';		//for initialization
@@ -23,6 +19,8 @@
 	{
 		$_SESSION['searchMedia'] = NULL;
 		$_SESSION['onlyDecade'] = 'false';
+		$_SESSION['cart'] = NULL;
+		$_SESSION['page'] = 1;
 	}
 	if(isset($_GET['searchMedia']))
 	{
@@ -196,14 +194,14 @@
 							<li class="active">
 								<a href="?home=true">Home</a>
 							</li>
-							<li>
+							<!--<li>
 								<a href="#shop">Shop</a>
+							</li>-->
+							<li>
+								<a href="#">My Cart</a>
 							</li>
 							<li>
-								<a href="#sell">Sell</a>
-							</li>
-							<li>
-								<a href="#cart">My Cart</a>
+								<a href="/Database/sell.php">Sell</a>
 							</li>
 							<li>
 								<a href="#about">About</a>
@@ -339,7 +337,14 @@
 									echo
 
 									"<tr>" .
-									"<td><input type=\"checkbox\" name=\"".$ID. "\" value=\"checked\" onchange=\"clickingCkeckbox(this)\"/></td>" .
+									"<td><input type=\"checkbox\" name=\"".$ID. "\"";
+
+									if(isset($_SESSION['cart']) && in_array($ID, $_SESSION['cart']))
+									{
+										echo " checked=\"checked\"";
+									}
+
+									echo " onchange=\"clickingCkeckbox(this)\"/></td>" .
 									"<td>".$DVD_Title."</td>".
 									"<td>".$Price."</td>".
 									"<td>".$Genre."</td>".
