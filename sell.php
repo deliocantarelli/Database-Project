@@ -46,7 +46,7 @@
 			<div class="row not-row-sell">			<!--side bar!! -->
 					<div class="col-sm-3 col-md-2 sidebar search-box" data-offset-bottom="0">
 						<ul class="nav nav-sidebar affix-bottom affix-top affix-left affix-right sell-button">
-								<li><a id="DVD_Title_a">DVD Name</a></li>
+								<li><a id="DVD_Title_a">Media Name</a></li>
 								<li><a id="Price_a">Price</a></li>
 								<li><a id="Studio_a">Studio</a></li>
 								<li><a id="Released_a">Released</a></li>
@@ -58,7 +58,7 @@
 								<li><a id="Genre_a">Genre</a></li>
 								<li><a id="Aspect_a">Aspect</a></li>
 								<li><a id="UPC_a">UPC</a></li>
-								<li><a id="DVD_Release_Date_a">DVD Release Date</a></li>
+								<li><a id="DVD_Release_Date_a">Release Date</a></li>
 							  <button class="btn dropdown-toggle sr-only to-button sell-button" type="button" id="sellButton">
 							    Sell
 							  </button>
@@ -67,19 +67,19 @@
 			</div>
 			<div class="container main">
 				<form>
-					<input name="DVD_Title" type="text" class="form-control signup-field sell-field" placeholder="DVD Name" required="" style="margin-top: 50px;"/>
-					<input name="Price" type="text" class="form-control signup-field sell-field" placeholder="Price" required=""/>
-					<input name="Studio" type="text" class="form-control signup-field sell-field" placeholder="Studio" required=""/>
-					<input name="Released" type="text" class="form-control signup-field sell-field" placeholder="Released" required=""/>
-					<input name="Status" type="text" class="form-control signup-field sell-field" placeholder="Status" required=""/>
-					<input name="Sound" type="text" class="form-control signup-field sell-field" placeholder="Sound" required=""/>
-					<input name="Versions" type="text" class="form-control signup-field sell-field" placeholder="Versions" required=""/>
-					<input name="Rating" type="text" class="form-control signup-field sell-field" placeholder="Rating" required=""/>
-					<input name="Year" type="text" class="form-control signup-field sell-field" placeholder="Year" required=""/>
-					<input name="Genre" type="text" class="form-control signup-field sell-field" placeholder="Genre" required=""/>
-					<input name="Aspect" type="text" class="form-control signup-field sell-field" placeholder="Aspect" required=""/>
-					<input name="UPC" type="text" class="form-control signup-field sell-field" placeholder="UPC" required=""/>
-					<input name="DVD_Release_Date" type="text" class="form-control signup-field sell-field" placeholder="DVD release Date" required="" style="margin-bottom: 50px;"/>
+					<div style="display: inline margin-top: 50px;"><h5 class="sell-text">Name</h5><input name="DVD_Title" type="text" class="form-control signup-field sell-field" placeholder="Media Name" required=""/></div>
+					<div style="display: inline"><h5 class="sell-text">Price</h5><input name="Price" type="text" class="form-control signup-field sell-field" placeholder="Price" required=""/></div>
+					<div style="display: inline"><h5 class="sell-text">Studio</h5><input name="Studio" type="text" class="form-control signup-field sell-field" placeholder="Studio" required=""/></div>
+					<div style="display: inline"><h5 class="sell-text">Released</h5><input name="Released" type="text" class="form-control signup-field sell-field" placeholder="Released" required=""/></div>
+					<div style="display: inline"><h5 class="sell-text">Status</h5><input name="Status" type="text" class="form-control signup-field sell-field" placeholder="Status" required=""/></div>
+					<div style="display: inline"><h5 class="sell-text">Sound</h5><input name="Sound" type="text" class="form-control signup-field sell-field" placeholder="Sound" required=""/></div>
+					<div style="display: inline"><h5 class="sell-text">Versions</h5><input name="Versions" type="text" class="form-control signup-field sell-field" placeholder="Versions" required=""/></div>
+					<div style="display: inline"><h5 class="sell-text">Rating</h5><input name="Rating" type="text" class="form-control signup-field sell-field" placeholder="Rating" required=""/></div>
+					<div style="display: inline"><h5 class="sell-text">Year</h5><input name="Year" type="text" class="form-control signup-field sell-field" placeholder="Year" required=""/></div>
+					<div style="display: inline"><h5 class="sell-text">Genre</h5><input name="Genre" type="text" class="form-control signup-field sell-field" placeholder="Genre" required=""/></div>
+					<div style="display: inline"><h5 class="sell-text">Aspect</h5><input name="Aspect" type="text" class="form-control signup-field sell-field" placeholder="Aspect" required=""/></div>
+					<div style="display: inline"><h5 class="sell-text">UPC</h5><input name="UPC" type="text" class="form-control signup-field sell-field" placeholder="UPC" required=""/></div>
+					<div style="display: inline"><h5 class="sell-text">Release Date</h5><input name="DVD_Release_Date" type="text" class="form-control signup-field sell-field" placeholder="Release Date" required="" style="margin-bottom: 50px;"/></div>
 				</form>
 			</div>
 		</div>
@@ -92,7 +92,7 @@
 			var textToChange = new Array ($("#DVD_Title_a"), $("#Price_a"), $("#Studio_a"), $("#Released_a"), $("#Status_a"), 
 				$("#Sound_a"), $("#Versions_a"), $("#Rating_a"), $("#Year_a"), $("#Genre_a"), $("#Aspect_a"), 
 				$("#UPC_a"), $("#DVD_Release_Date_a"))
-			var placeHolder = new Array ('DVD Name', 'Price', 'Studio', 'Released', 'Status', 'Sound', 'Versions', 'Rating', 'Year', 'Genre', 'Aspect', 'UPC', 'DVD Release Date');
+			var placeHolder = new Array ('Media Name', 'Price', 'Studio', 'Released', 'Status', 'Sound', 'Versions', 'Rating', 'Year', 'Genre', 'Aspect', 'UPC', 'Release Date');
 			for (var i = 0; i <  newValue.length; i++) {
 				//newValue[i].bind("propertychange keyup input paste", function(event){if(newValue[i].val() != '') textToChange[i].html(newValue[i].val()); else textToChange[i].html(placeHolder[i]);});
 			};
