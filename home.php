@@ -1,6 +1,7 @@
 <?php
 	if(!isset($_SESSION))			//just for localhost
 	{
+		session_id(1111);
 		session_start();
 	}
 	if(isset($_SESSION['cart']))
@@ -413,7 +414,6 @@
 		<script type="text/javascript">
 			window.shopCart = new Array();
 			function checkCheckbox(id) {
-				window.nada = 'nada';
 				passToSession(id);
 			}
 			function uncheckCheckbox(id) {
@@ -429,11 +429,11 @@
 			}
 			function passToSession(id)
 			{
-    			$("#nada").load("php/addCart.php?addCart=" + id);
+    			$("#nada").load("php/addCart.php?addCart=" + id + "&session=" + <?php echo session_id(); ?>);
 			}
 			function removeFromSession(id)
 			{
-    			$("#nada").load("php/addCart.php?removeCart=" + id);
+    			$("#nada").load("php/addCart.php?removeCart=" + id + "&session=" + <?php echo session_id(); ?>);
 			}
 		</script>
 	</body>
