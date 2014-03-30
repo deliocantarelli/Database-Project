@@ -3,6 +3,10 @@
 	{
 		session_start();
 	}
+	if(isset($_SESSION['cart']))
+	{
+
+	}
 	if(!isset($_SESSION['sortType']))
 	{
 		$_SESSION['sortType'] = 'TitleASC';		//for initialization
@@ -184,7 +188,7 @@
 				<div class="container">
 					<div class="navbar-header">
 						<button type="button" class="navbar-toggle" data-toggle="colapse" data-target=".navbar-collapse"></button>
-						<a class="navbar-brand default-text-color1" href="?home=true">Media Tag</a>
+						<a class="navbar-brand default-text-color1" href="/Database/home.php?home=true">Media Tag</a>
 					</div>
 					<div class="navbar-collapse collapse">
 						<div class="nav navbar-nav default-text-color1">
@@ -245,6 +249,9 @@
 								    <li role="presentation"><a role="menuitem" tabindex="-12" href="?decade=any">Any</a></li>
 								  </ul>
 								</div>
+							  <button class="btn dropdown-toggle sr-only to-button cart-button" type="button" id="dropdownMenu1" data-toggle="dropdown">
+							    Add to Cart
+							  </button>
 						</ul>
 					</div>
 			</div>			
@@ -331,7 +338,7 @@
 									echo
 
 									"<tr>" .
-									"<td><input type=\"checkbox\" name=\"checkbox-".$ID. "\" value=\"checked\" /></td>" .
+									"<td><input type=\"checkbox\" name=\"".$ID. "\" value=\"checked\" onchange=\"clickingCkeckbox(this)\"/></td>" .
 									"<td>".$DVD_Title."</td>".
 									"<td>".$Price."</td>".
 									"<td>".$Genre."</td>".
@@ -399,9 +406,35 @@
 				
 			</div>
 		</div>
-
+		<div id="nada"></div>
 
 		<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
+		<script type="text/javascript">
+			window.shopCart = new Array();
+			function checkCheckbox(id) {
+				window.nada = 'nada';
+				passToSession(id);
+			}
+			function uncheckCheckbox(id) {
+				removeFromSession(id);
+			}
+			function clickingCkeckbox(checkbox) {
+			    if (checkbox.checked){
+			        checkCheckbox(checkbox.name);
+			    }
+			    else{
+			        uncheckCheckbox(checkbox.name);
+			    }
+			}
+			function passToSession(id)
+			{
+    			$("#nada").load("php/addCart.php?addCart=" + id);
+			}
+			function removeFromSession(id)
+			{
+    			$("#nada").load("php/addCart.php?removeCart=" + id);
+			}
+		</script>
 	</body>
 </html>
