@@ -1,10 +1,11 @@
 <?php
-	session_id($_GET['session']);
+	//session_id($_GET['session']);
 	session_start();
 ?>
 <!doctype>
 <html>
 	<body>
+		<script type="text/javascript">//alert();</script>
 		<?php
 			echo session_id();
 			if(!isset($_SESSION['cart']))

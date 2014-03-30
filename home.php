@@ -1,8 +1,15 @@
 <?php
 	if(!isset($_SESSION))			//just for localhost
 	{
-		session_id(1111);
 		session_start();
+	}
+	if(!isset($_SESSION['cart']))
+	{
+		echo "aee";
+	}
+	if(!isset($_SESSION['user']) && $_GET['user'])
+	{
+		$_SESSION['user'] = $_GET['user'];
 	}
 	if(!isset($_SESSION['sortType']))
 	{
@@ -14,6 +21,7 @@
 		$_SESSION['onlyDecade'] = 'false';
 		$_SESSION['itensPerPage'] = 20;
 		$_SESSION['page'] = 1;
+		$_SESSION['cart'] = NULL;
 	}
 	if(isset($_GET['home']))
 	{
@@ -142,7 +150,6 @@
 	global $result, $count, $first_result, $last_result, $number_pages;		//for using in other parts of the code
     $result = $db->prepare($query);							//gets ready all the important data
 
-    	echo $query;
     if(isset($_SESSION['searchMedia']))
     {
     	$searchGambi = '%' . $_SESSION['searchMedia'] . '%';
@@ -434,11 +441,11 @@
 			}
 			function passToSession(id)
 			{
-    			$("#nada").load("php/addCart.php?addCart=" + id + "&session=" + <?php echo session_id(); ?>);
+    			$("#nada").load("php/addCart.php?addCart=" + id + "&session=" + '<?php echo session_id(); ?>');
 			}
 			function removeFromSession(id)
 			{
-    			$("#nada").load("php/addCart.php?removeCart=" + id + "&session=" + <?php echo session_id(); ?>);
+    			$("#nada").load("php/addCart.php?removeCart=" + id + "&session=" + '<?php echo session_id(); ?>');
 			}
 		</script>
 	</body>

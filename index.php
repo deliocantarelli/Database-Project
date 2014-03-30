@@ -4,6 +4,26 @@
         session_destroy();
     }
     error_reporting(E_ALL);
+    function startSession()
+    {
+        $db = new mysqli('localhost', 'root', '', 'Databases');
+        $statement = $db->prepare("SELECT UserID FROM Users where Email like ?");
+        $statement->bind_param("s", $_POST['email']);
+        $statement->execute();
+        $statement->bind_result($ID);
+        $statement->store_result();
+        $statement->fetch();
+
+
+        $idSession = "s";
+        for ($i = 0; $i < 15; $i++)
+        {
+            $idSession = $idSession . dechex(rand(1, 16));
+        }
+        session_id($idSession);
+        session_start();
+        header("Location: http://localhost/Database/home.php?user=".$ID);
+    }
     function login ()
     {
         $email = $_POST['email'];
@@ -23,8 +43,7 @@
                 $statement = $db->prepare("UPDATE Users set LastLogin=NOW() where Email like ?");
                 $statement->bind_param("s", $_POST['email']);
                 $statement->execute();
-                session_start();
-                header("Location: http://localhost/Database/home.php");
+                startSession();
                 exit();
             }
         }
@@ -68,9 +87,7 @@
             $statement->bind_param("sssssss", $_POST['email'], $_POST['password'], $_POST['first-name'], $_POST['surname'], $_POST['address'], $_POST['town'], $_POST['post-code']);
             if($statement->execute())
             {
-                session_start();
-
-                header("Location: http://localhost/Database/home.php");
+                startSession();
             }
         }
 

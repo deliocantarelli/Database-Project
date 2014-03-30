@@ -1,3 +1,13 @@
+<?php
+	if(!isset($_SESSION))
+	{
+		session_start();
+	}
+	if(isset($_POST))
+	{
+
+	}
+?>
 <!doctype>
 <html style="height: 100%;">
 	<head>
@@ -59,14 +69,14 @@
 								<li><a id="Aspect_a">Aspect</a></li>
 								<li><a id="UPC_a">UPC</a></li>
 								<li><a id="DVD_Release_Date_a">Release Date</a></li>
-							  <button class="btn dropdown-toggle sr-only to-button sell-button" type="button" id="sellButton">
+							  <button class="btn dropdown-toggle sr-only to-button sell-button" type="button" id="sellButton" onclick="submitForm()">
 							    Sell
 							  </button>
 						</ul>
 					</div>
 			</div>
 			<div class="container main">
-				<form>
+				<form name="formToSell" id="formToSell" method="post" action="">
 					<div style="display: inline margin-top: 50px;"><h5 class="sell-text">Name</h5><input name="DVD_Title" type="text" class="form-control signup-field sell-field" placeholder="Media Name" required=""/></div>
 					<div style="display: inline"><h5 class="sell-text">Price</h5><input name="Price" type="text" class="form-control signup-field sell-field" placeholder="Price" required=""/></div>
 					<div style="display: inline"><h5 class="sell-text">Studio</h5><input name="Studio" type="text" class="form-control signup-field sell-field" placeholder="Studio" required=""/></div>
@@ -93,9 +103,9 @@
 				$("#Sound_a"), $("#Versions_a"), $("#Rating_a"), $("#Year_a"), $("#Genre_a"), $("#Aspect_a"), 
 				$("#UPC_a"), $("#DVD_Release_Date_a"))
 			var placeHolder = new Array ('Media Name', 'Price', 'Studio', 'Released', 'Status', 'Sound', 'Versions', 'Rating', 'Year', 'Genre', 'Aspect', 'UPC', 'Release Date');
-			for (var i = 0; i <  newValue.length; i++) {
+			//for (var i = 0; i <  newValue.length; i++) {
 				//newValue[i].bind("propertychange keyup input paste", function(event){if(newValue[i].val() != '') textToChange[i].html(newValue[i].val()); else textToChange[i].html(placeHolder[i]);});
-			};
+			//};
 				newValue[0].bind("propertychange keyup input paste", function(event){if(newValue[0].val() != '') textToChange[0].html(newValue[0].val()); else textToChange[0].html(placeHolder[0]);});				//porque a porra do for não funciona '--
 
 				newValue[1].bind("propertychange keyup input paste", function(event){if(newValue[1].val() != '') textToChange[1].html(newValue[1].val()); else textToChange[1].html(placeHolder[1]);});
@@ -111,6 +121,25 @@
 				newValue[11].bind("propertychange keyup input paste", function(event){if(newValue[11].val() != '') textToChange[11].html(newValue[11].val()); else textToChange[11].html(placeHolder[11]);});
 				newValue[12].bind("propertychange keyup input paste", function(event){if(newValue[12].val() != '') textToChange[12].html(newValue[12].val()); else textToChange[12].html(placeHolder[12]);});
 			 
+		</script>
+		<script type="text/javascript">
+			function submitForm()
+			{
+				/*var a=document.forms["Form"]["ans_a"].value;
+			    var b=document.forms["Form"]["ans_b"].value;
+			    var c=document.forms["Form"]["ans_c"].value;
+			    var d=document.forms["Form"]["ans_d"].value;
+			    if (a==null || a=="",b==null || b=="",c==null || c=="",d==null || d=="")
+			      {
+			      alert("Please Fill All Required Field");
+			      return false;
+			      }
+			    }
+			    else
+			    {
+					document.formToSell.submit();
+			    }*/
+			}
 		</script>
 	</body>
 
