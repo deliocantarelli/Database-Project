@@ -159,8 +159,12 @@
 			    {
 			    	if(b.match(numbers))
 			    	{
-				    	alert("Please Fill All Required Fields Correctly");
 						document.formToSell.submit();
+			    	}
+			    	else
+			    	{
+			    		
+				    	alert("Please Fill All Required Fields Correctly");
 			    	}
 			    }
 			}
