@@ -63,12 +63,24 @@ ul > .dropdown > .to-button :focus  {
 div > div > ul > .to-button,
 div > div > ul > .to-button:hover,
 div > div > ul > .to-button:focus {
-	margin-top: 180px;
+	margin-top: 150px;
 	color: #FFE6FF;
 	font-size: 18px;
 	background-color: #428bca;
 	width: 160px;
 	height: 50px;
+}
+div > div > ul > .erase-button,
+div > div > ul > .erase-button:hover,
+div > div > ul > .erase-button:focus {
+	position: relative;
+	margin-left: 22px;
+	margin-top: 20px;
+	color: #FFE6FF;
+	font-size: 13px;
+	background-color: #33A1DE;
+	width: 100px;
+	height: 30px;
 }
 
 .conainer-fluid {
@@ -181,4 +193,13 @@ div > div > ul > .sell-button:focus {
 	margin-top: 21px;
 	margin-left: 50px;
 	padding-top: 8px;
+}
+
+.not-row-cart {
+	float: left;
+	width: 16.6667%;
+	margin-right: 0px;
+	margin-left: -15px;
+	height: 100%;
+	background-color: #F0F8FF;
 }

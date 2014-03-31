@@ -19,11 +19,14 @@
 		$_SESSION['page'] = 1;
 		$_SESSION['cart'] = NULL;
 	}
+	if(isset($_POST['eraseCart']))
+	{
+		$_SESSION['cart'] = NULL;
+	}
 	if(isset($_GET['home']))
 	{
 		$_SESSION['searchMedia'] = NULL;
 		$_SESSION['onlyDecade'] = 'false';
-		$_SESSION['cart'] = NULL;
 		$_SESSION['page'] = 1;
 	}
 	if(isset($_GET['searchMedia']))
@@ -251,6 +254,9 @@
 								    <li role="presentation"><a role="menuitem" tabindex="-12" href="?decade=any">Any</a></li>
 								  </ul>
 								</div>
+							  <button class="btn dropdown-toggle sr-only erase-button" type="button" id="eraseCart" onclick="cleanCart()">
+							    Clean Cart
+							  </button>
 							  <button class="btn dropdown-toggle sr-only to-button cart-button" type="button" id="addCartButton" data-toggle="dropdown">
 							    Add to Cart
 							  </button>
@@ -416,6 +422,11 @@
 			</div>
 		</div>
 		<div id="nada"></div>
+		<div>
+			<form name="formEraseCart" id="eraseCart" method="post" action="">
+				<input type="hidden" name="eraseCart" value="true" />
+			</form>
+		</div>
 
 		<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -442,6 +453,10 @@
 			function removeFromSession(id)
 			{
     			$("#nada").load("php/addCart.php?removeCart=" + id + "&session=" + '<?php echo session_id(); ?>');
+			}
+			function cleanCart()
+			{
+				document.formEraseCart.submit();
 			}
 		</script>
 	</body>

@@ -15,8 +15,15 @@
 	{
 		session_start();
 	}
-	global $count, $statement, $ID, $DVD_Title, $Price, $Genre, $Year;
+
+	if(isset($_POST['eraseCart']))
+	{
+		$_SESSION['cart'] = NULL;
+	}
+
+	global $count, $statement, $ID, $DVD_Title, $Price, $Genre, $Year, $sum;
 	$count = count($_SESSION['cart']);
+	$sum = 0;
 	echo $count;
 	if($count > 0)
 	{
@@ -41,10 +48,6 @@
 	    $statement->execute();
     	$statement->bind_result($ID, $DVD_Title, $Price, $Genre, $Year);
     	$statement->store_result();
-	}
-	else
-	{
-		echo '<script>setCartDatas(0, 0)</script>';
 	}
 ?>
 
@@ -95,7 +98,7 @@
 		</div>
 
 		<div class="container-fluid" style="height: 100%">
-			<div class="row not-row">			<!--side bar!! -->
+			<div class="row not-row-cart">			<!--side bar!! -->
 					<div class="col-sm-3 col-md-2 sidebar search-box">
 						<ul class="nav nav-sidebar">
 								<li><a id="numberItensText" style="margin-top: 200px;">Number of Itens: </a></li>
@@ -103,6 +106,10 @@
 							  <button class="btn dropdown-toggle sr-only to-button cart-button" type="button" id="addCartButton">
 							    Buy Now!
 							  </button>
+							 	<button class="btn dropdown-toggle sr-only erase-button" type="submit" id="eraseCart" style="margin-left: 40px" onclick="cleanCart()">
+							    	Clean Cart
+							  	</button>
+							  
 						</ul>
 					</div>
 			</div>			
@@ -119,9 +126,9 @@
 					<thead>
 						<tr>
 							<th>Delete</th>
-							<th>Name</th>
+							<th style="min-width: 420px;">Name</th>
 							<th>Price</th>
-							<th>Genre</th>
+							<th style="min-width: 100px;">Genre</th>
 							<th>Year</th>
 						</tr>
 					</thead>
@@ -129,6 +136,7 @@
 						<?php
 			            	for ($i = 0; $i < $count && ($statement->fetch()); $i ++)
 							{
+								$sum += $Price;
 								echo
 
 								"<tr>" .
@@ -140,6 +148,15 @@
 
 								"</tr>";
 							}
+							echo '
+							<script>
+									function setCartDatas()
+									{
+										$("#totalText").html($("#totalText").html() + '  . $sum . ');
+										$("#numberItensText").html($("#numberItensText").html() + ' . $count . ');
+									}
+									window.onload = setCartDatas;
+								</script>';
 						?>
 
 
@@ -147,15 +164,19 @@
 				</table>
 			</div>
 		</div>
+		<div>
+			<form name="formEraseCart" id="eraseCart" method="post" action="">
+				<input type="hidden" name="eraseCart" value="true" />
+			</form>
+		</div>
 
 
 		<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
 		<script type="text/javascript">
-			function setCartDatas(countElements, totalValue)
+			function cleanCart()
 			{
-				$("#totalText").html($("#totalText").html() + totalValue);
-				$("#numberItensText").html($("#numberItensText").html() + countElements);
+				document.formEraseCart.submit();
 			}
 		</script>
 	</body>
