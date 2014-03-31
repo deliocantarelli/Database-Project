@@ -3,10 +3,6 @@
 	{
 		session_start();
 	}
-	if(!isset($_SESSION['cart']))
-	{
-		echo "aee";
-	}
 	if(!isset($_SESSION['user']) && $_GET['user'])
 	{
 		$_SESSION['user'] = $_GET['user'];
@@ -205,7 +201,7 @@
 								<a href="#shop">Shop</a>
 							</li>-->
 							<li>
-								<a href="#">My Cart</a>
+								<a href="/Database/cart.php">My Cart</a>
 							</li>
 							<li>
 								<a href="/Database/sell.php">Sell</a>
@@ -353,7 +349,7 @@
 
 									echo " onchange=\"clickingCkeckbox(this)\"/></td>" .
 									"<td>".$DVD_Title."</td>".
-									"<td>".$Price."</td>".
+									"<td>£".$Price."</td>".
 									"<td>".$Genre."</td>".
 									"<td>".$Year."</td>".
 

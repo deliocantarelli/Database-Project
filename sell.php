@@ -45,10 +45,10 @@
 								<a href="#shop">Shop</a>
 							</li>-->
 							<li>
-								<a href="#cart">My Cart</a>
+								<a href="/Database/cart.php">My Cart</a>
 							</li>
 							<li class="active">
-								<a href="#sell">Sell</a>
+								<a>Sell</a>
 							</li>
 							<li>
 								<a href="#about">About</a>
