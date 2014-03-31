@@ -15,7 +15,10 @@
 	{
 		session_start();
 	}
-
+	if(isset($_POST['eraseElement']))
+	{
+		array_splice($_SESSION['cart'], array_search($_POST['eraseElement'], $_SESSION['cart']), 1);
+	}
 	if(isset($_POST['eraseCart']))
 	{
 		$_SESSION['cart'] = NULL;
@@ -140,7 +143,7 @@
 								echo
 
 								"<tr>" .
-								"<td><button type=\"button\" name=\"".$ID. "\" class=\"btn\" style=\"background-color: #428bca; margin-top: 3px;\"/></button>" .
+								"<td><button type=\"button\" name=\"".$ID. "\" class=\"btn\" style=\"background-color: #428bca; margin-top: 3px;\" onclick=\"eraseElement(". $ID .")\" /></button>" .
 								"<td>".$DVD_Title."</td>".
 								"<td>£".$Price."</td>".
 								"<td>".$Genre."</td>".
@@ -169,6 +172,11 @@
 				<input type="hidden" name="eraseCart" value="true" />
 			</form>
 		</div>
+		<div>
+			<form name="formEraseElement" id="eraseCart" method="post" action="">
+				<input type="hidden" name="eraseElement" value="" />
+			</form>
+		</div>
 
 
 		<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
@@ -177,6 +185,11 @@
 			function cleanCart()
 			{
 				document.formEraseCart.submit();
+			}
+			function eraseElement(id)
+			{
+				$('input[name=eraseElement]').value = id;
+				document.formEraseElement.submit();
 			}
 		</script>
 	</body>
