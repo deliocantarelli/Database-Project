@@ -257,7 +257,7 @@
 							  <button class="btn dropdown-toggle sr-only erase-button" type="button" id="eraseCart" onclick="cleanCart()">
 							    Clean Cart
 							  </button>
-							  <button class="btn dropdown-toggle sr-only to-button cart-button" type="button" id="addCartButton" data-toggle="dropdown">
+							  <button class="btn dropdown-toggle sr-only to-button cart-button" type="button" id="addCartButton" onclick="goToCart()">
 							    Add to Cart
 							  </button>
 						</ul>
@@ -427,6 +427,10 @@
 				<input type="hidden" name="eraseCart" value="true" />
 			</form>
 		</div>
+		<div>
+			<form name="formGoToCart" id="formGoToCart" method="post" action="/Database/cart.php">
+			</form>
+		</div>
 
 		<script type="text/javascript" src="js/jquery-1.11.0.js"></script>
 		<script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -457,6 +461,10 @@
 			function cleanCart()
 			{
 				document.formEraseCart.submit();
+			}
+			function goToCart()
+			{
+				document.formGoToCart.submit();
 			}
 		</script>
 	</body>
